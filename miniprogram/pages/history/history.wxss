@@ -1,0 +1,176 @@
+/* pages/history/history.wxss */
+.container {
+  padding: 30rpx;
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+
+.title {
+  display: block;
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.subtitle {
+  display: block;
+  font-size: 26rpx;
+  color: #999;
+}
+
+.record-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.record-item {
+  background: white;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  box-shadow: 0 10rpx 30rpx rgba(0, 0, 0, 0.05);
+}
+
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 2rpx solid #f5f5f5;
+}
+
+.name {
+  font-size: 34rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 审批人姓名样式 */
+.approver-name {
+  font-size: 24rpx;
+  color: #666;
+  margin-right: 10rpx;
+}
+
+/* 右侧容器样式 */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+}
+
+/* 销假按钮样式 - 与状态标签大小一致 */
+.cancel-btn {
+  display: inline-block;
+  background: #f0f0f0;
+  color: #666;
+  border: 2rpx solid #ddd;
+  border-radius: 12rpx;
+  padding: 6rpx 10rpx;
+  font-size: 20rpx;
+  min-width: auto;
+  max-width: 80rpx;
+}
+
+/* 状态标签样式 */
+.status-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40rpx;
+  padding: 0 15rpx;
+  border-radius: 12rpx;
+  font-size: 20rpx;
+  font-weight: 500;
+}
+
+.item-content {
+  margin-bottom: 20rpx;
+}
+
+.info-row {
+  display: flex;
+  margin-bottom: 15rpx;
+}
+
+.info-row:last-child {
+  margin-bottom: 0;
+}
+
+.label {
+  font-size: 28rpx;
+  color: #666;
+  width: 120rpx;
+  flex-shrink: 0;
+}
+
+.value {
+  font-size: 28rpx;
+  color: #333;
+  flex: 1;
+}
+
+.value.reason {
+  line-height: 1.5;
+}
+
+.item-footer {
+  padding-top: 20rpx;
+  border-top: 2rpx solid #f5f5f5;
+}
+
+/* 审批人姓名样式（页脚） */
+.approver-name-footer {
+  display: block;
+  font-size: 24rpx;
+  color: #666;
+  margin-top: 10rpx;
+  padding-left: 20rpx;
+}
+
+/* 时间样式优化 */
+.time {
+  font-size: 24rpx;
+  color: #999;
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 100rpx 0;
+}
+
+.empty-icon {
+  display: block;
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #999;
+}
+
+.loading {
+  text-align: center;
+  padding: 50rpx 0;
+}
+
+.loading-text {
+  font-size: 28rpx;
+  color: #999;
+}
+
+/* 销假后的记录置灰 */
+.record-item.canceled {
+  opacity: 0.6;
+  background: #f8f8f8;
+}

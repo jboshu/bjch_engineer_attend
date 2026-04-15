@@ -1,0 +1,45 @@
+<!--pages/login/login.wxml-->
+<view class="login-container">
+  <view class="login-header">
+    <image class="logo" src="/images/logo.png" mode="aspectFit"></image>
+    <view class="title">北肿工程科请假系统</view>
+    <view class="subtitle">管理员登录</view>
+  </view>
+
+  <view class="login-form">
+    <view class="form-item">
+      <view class="input-wrapper">
+        <input 
+          class="password-input" 
+          password="{{!showPassword}}"
+          placeholder="请输入管理员密码" 
+          value="{{password}}"
+          bindinput="onPasswordInput"
+        />
+        <view class="eye-icon" bindtap="togglePassword">
+          <text class="iconfont {{showPassword ? 'icon-eye-open' : 'icon-eye-close'}}"></text>
+        </view>
+      </view>
+    </view>
+
+    <button 
+      class="login-btn {{isLoading ? 'loading' : ''}}" 
+      bindtap="handleLogin"
+      disabled="{{isLoading}}"
+    >
+      <text wx:if="{{!isLoading}}">登录</text>
+      <text wx:else>登录中...</text>
+    </button>
+
+    <view class="forget-password" bindtap="showForgetPassword">
+      忘记密码？
+    </view>
+  </view>
+
+  <view class="login-footer">
+    <view class="tips">
+      <view class="tip-item">🔒 默认密码：123456</view>
+      <view class="tip-item">📱 仅限授权管理员使用</view>
+    </view>
+  </view>
+</view>

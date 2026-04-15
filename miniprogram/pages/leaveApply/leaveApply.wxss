@@ -1,0 +1,229 @@
+/* pages/leaveApply/leaveApply.wxss */
+.container {
+  background: #f5f5f5;
+  padding: 20rpx 20rpx 40rpx;
+}
+
+.form-card {
+  background: white;
+  border-radius: 20rpx;
+  padding: 40rpx 30rpx; /* 左右30rpx内边距，确保对称 */
+  max-width: 800rpx;
+  margin: 0 auto;
+  box-sizing: border-box;
+  margin-bottom: 30rpx;
+  box-shadow: 0 10rpx 30rpx rgba(0, 0, 0, 0.05);
+}
+
+.card-header {
+  text-align: center;
+  margin-bottom: 50rpx;
+}
+
+.card-title {
+  display: block;
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.card-subtitle {
+  display: block;
+  font-size: 26rpx;
+  color: #999;
+}
+
+.form-group {
+  margin-bottom: 40rpx;
+}
+
+.form-label {
+  display: block;
+  font-size: 30rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.picker {
+  height: 80rpx;
+  line-height: 80rpx;
+  padding: 0 20rpx; /* 左右20rpx内边距 */
+  background: #f8f8f8;
+  border-radius: 12rpx;
+  border: 2rpx solid #e0e0e0;
+  font-size: 30rpx;
+  color: #333;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.picker.placeholder {
+  color: #999;
+}
+
+.reason-textarea {
+  width: 100%;
+  min-height: 200rpx;
+  padding: 20rpx 30rpx;
+  background: #f8f8f8;
+  border-radius: 12rpx;
+  border: 2rpx solid #e0e0e0;
+  font-size: 30rpx;
+  line-height: 1.5;
+  box-sizing: border-box;
+}
+
+.char-count {
+  text-align: right;
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 10rpx;
+}
+
+.form-actions {
+  display: flex;
+  gap: 30rpx;
+  margin-top: 50rpx;
+}
+
+.btn {
+  flex: 1;
+  height: 80rpx;
+  border-radius: 12rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-reset {
+  background: #f0f0f0;
+  color: #666;
+  border: 2rpx solid #ddd;
+}
+
+.btn-submit {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+}
+
+.btn-submit[disabled] {
+  opacity: 0.7;
+}
+
+.notice-card {
+  background: white;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  box-shadow: 0 10rpx 30rpx rgba(0, 0, 0, 0.05);
+}
+
+.notice-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.notice-content {
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.6;
+}
+
+.notice-item {
+  margin-bottom: 15rpx;
+}
+
+.notice-item:last-child {
+  margin-bottom: 0;
+}
+
+.loading {
+  opacity: 0.7;
+}
+
+/* 日期范围选择样式 */
+.toggle-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30rpx;
+  padding: 20rpx;
+  background: #f8f9fa;
+  border-radius: 12rpx;
+}
+
+.toggle-label {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.date-toggle {
+  transform: scale(0.8);
+}
+
+.date-picker-item {
+  margin-bottom: 25rpx;
+}
+
+.date-label {
+  display: block;
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 15rpx;
+  font-weight: 500;
+}
+
+.date-single-display {
+  padding: 25rpx 30rpx;
+  background: #f8f8f8;
+  border-radius: 12rpx;
+  border: 2rpx solid #e0e0e0;
+  text-align: center;
+}
+
+.single-date {
+  font-size: 30rpx;
+  color: #333;
+  font-weight: 500;
+}
+/* 针对窄长屏（折叠屏外屏等） */
+.container--narrow .form-card {
+  padding: 30rpx 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.container--narrow .card-title {
+  font-size: 34rpx;
+}
+
+.container--narrow .card-subtitle {
+  font-size: 24rpx;
+}
+
+.container--narrow .form-group {
+  margin-bottom: 30rpx;
+}
+
+.container--narrow .form-actions {
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.container--narrow .form-card,
+.container--narrow .notice-card {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.container--narrow .reason-textarea {
+  padding: 20rpx;
+}

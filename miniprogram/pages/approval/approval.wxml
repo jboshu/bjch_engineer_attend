@@ -1,0 +1,151 @@
+<!--pages/approval/approval.wxml-->
+<view class="container">
+  <!-- 标签页导航 -->
+  <view class="tabs">
+    <view 
+      class="tab-item {{activeTab === tab.key ? 'active' : ''}}" 
+      wx:for="{{tabs}}" 
+      wx:key="key"
+      data-tab="{{tab.key}}"
+      bindtap="onTabChange"
+    >
+      <text class="tab-title">{{tab.title}}</text>
+      <text class="tab-count">{{tab.count}}</text>
+    </view>
+  </view>
+
+  <!-- 内容区域 -->
+  <view class="content">
+    <!-- 待审批列表 -->
+    <view class="list-container" wx:if="{{activeTab === 'pending'}}">
+      <view class="empty-state" wx:if="{{pendingList.length === 0 && !isLoading}}">
+        <text class="empty-icon">📭</text>
+        <text class="empty-text">暂无待审批的申请</text>
+      </view>
+      
+      <view class="application-list" wx:else>
+        <view 
+          class="application-card" 
+          wx:for="{{pendingList}}" 
+          wx:key="_id"
+        >
+          <view class="card-header">
+            <view class="applicant-info">
+              <text class="applicant-name">{{item.name}}</text>
+              <text class="application-date">{{item.formatDate}}</text>
+            </view>
+            <view class="status-tag pending" wx:if="{{!item.canceled}}">待审批</view>
+            <view class="status-tag canceled" wx:else style="background: #999; color: #fff;">已销假</view>
+          </view>
+          
+          <view class="card-body">
+            <view class="info-row">
+              <text class="info-label">请假时段：</text>
+              <text class="info-value">{{item.formatPeriod}}</text>
+            </view>
+            <view class="info-row">
+              <text class="info-label">请假原因：</text>
+              <text class="info-value reason">{{item.reason}}</text>
+            </view>
+          </view>
+          
+          <view class="card-footer" wx:if="{{!item.canceled}}">
+            <button 
+              class="action-btn reject"
+              data-id="{{item._id}}"
+              data-status="rejected"
+              bindtap="handleApproval"
+            >
+              拒绝
+            </button>
+            <button 
+              class="action-btn approve"
+              data-id="{{item._id}}"
+              data-status="approved"
+              bindtap="handleApproval"
+            >
+              批准
+            </button>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 已批准列表 -->
+    <view class="list-container" wx:if="{{activeTab === 'approved'}}">
+      <view class="empty-state" wx:if="{{approvedList.length === 0 && !isLoading}}">
+        <text class="empty-icon">✅</text>
+        <text class="empty-text">暂无已批准的申请</text>
+      </view>
+      
+      <view class="application-list" wx:else>
+        <view 
+          class="application-card approved" 
+          wx:for="{{approvedList}}" 
+          wx:key="_id"
+        >
+          <view class="card-header">
+            <view class="applicant-info">
+              <text class="applicant-name">{{item.name}}</text>
+              <text class="application-date">{{item.formatDate}}</text>
+            </view>
+            <view class="status-tag approved" wx:if="{{!item.canceled}}">已批准</view>
+            <view class="status-tag canceled" wx:else style="background: #999; color: #fff;">已销假</view>
+          </view>
+          
+          <view class="card-body">
+            <view class="info-row">
+              <text class="info-label">请假时段：</text>
+              <text class="info-value">{{item.formatPeriod}}</text>
+            </view>
+            <view class="info-row">
+              <text class="info-label">请假原因：</text>
+              <text class="info-value reason">{{item.reason}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 已拒绝列表 -->
+    <view class="list-container" wx:if="{{activeTab === 'rejected'}}">
+      <view class="empty-state" wx:if="{{rejectedList.length === 0 && !isLoading}}">
+        <text class="empty-icon">❌</text>
+        <text class="empty-text">暂无已拒绝的申请</text>
+      </view>
+      
+      <view class="application-list" wx:else>
+        <view 
+          class="application-card rejected" 
+          wx:for="{{rejectedList}}" 
+          wx:key="_id"
+        >
+          <view class="card-header">
+            <view class="applicant-info">
+              <text class="applicant-name">{{item.name}}</text>
+              <text class="application-date">{{item.formatDate}}</text>
+            </view>
+            <view class="status-tag rejected" wx:if="{{!item.canceled}}">已拒绝</view>
+            <view class="status-tag canceled" wx:else style="background: #999; color: #fff;">已销假</view>
+          </view>
+          
+          <view class="card-body">
+            <view class="info-row">
+              <text class="info-label">请假时段：</text>
+              <text class="info-value">{{item.formatPeriod}}</text>
+            </view>
+            <view class="info-row">
+              <text class="info-label">请假原因：</text>
+              <text class="info-value reason">{{item.reason}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading" wx:if="{{isLoading}}">
+    <text class="loading-text">加载中...</text>
+  </view>
+</view>

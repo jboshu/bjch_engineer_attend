@@ -1,0 +1,65 @@
+<!--pages/history/history.wxml-->
+<view class="container">
+  <view class="header">
+    <text class="title">请假历史记录</text>
+    <text class="subtitle">按时间倒序排列的所有申请</text>
+  </view>
+
+  <view class="record-list">
+    <view 
+      class="record-item {{item.canceled ? 'canceled' : ''}}" 
+      wx:for="{{recordList}}" 
+      wx:key="_id"
+    >
+      <view class="item-header">
+        <text class="name">{{item.name}}</text>
+        <!-- 右侧容器：销假按钮 + 状态标签 -->
+        <view class="header-right">
+          <!-- 销假按钮（仅对未销假的记录显示，无论审批状态） -->
+          <button wx:if="{{!item.canceled}}" 
+                  class="cancel-btn" 
+                  bindtap="handleCancelLeave"
+                  data-id="{{item._id}}">
+            销假
+          </button>
+          <view class="status-tag" style="color: {{item.formatStatus.color}}; border-color: {{item.formatStatus.color}}">
+            {{item.formatStatus.text}}
+          </view>
+        </view>
+      </view>
+      
+      <view class="item-content">
+        <view class="info-row">
+          <text class="label">日期：</text>
+          <text class="value">{{item.formatDate}}</text>
+        </view>
+        <view class="info-row">
+          <text class="label">时段：</text>
+          <text class="value">{{item.formatPeriod}}</text>
+        </view>
+        <view class="info-row">
+          <text class="label">原因：</text>
+          <text class="value reason">{{item.reason}}</text>
+        </view>
+      </view>
+      
+      <view class="item-footer">
+        <text class="time">申请时间：{{item.formattedCreateTime}}</text>
+        <!-- 审批人姓名（在时间下面显示） -->
+        <text wx:if="{{item.approverName && item.status !== 'pending'}}" 
+              class="approver-name-footer">
+          审批人：{{item.approverName}}
+        </text>
+      </view>
+    </view>
+    
+    <view class="empty-state" wx:if="{{recordList.length === 0 && !isLoading}}">
+      <text class="empty-icon">📋</text>
+      <text class="empty-text">暂无请假记录</text>
+    </view>
+  </view>
+
+  <view class="loading" wx:if="{{isLoading}}">
+    <text class="loading-text">加载中...</text>
+  </view>
+</view>

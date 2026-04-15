@@ -1,0 +1,93 @@
+<!--pages/staff/staff.wxml-->
+<view class="container">
+  <!-- 头部 -->
+  <view class="header">
+    <text class="title">👥 人员管理</text>
+    <text class="subtitle">管理系统人员信息</text>
+  </view>
+
+  <!-- 人员列表 -->
+  <view class="staff-list">
+    <view class="list-header">
+      <text class="header-title">人员列表 ({{staffList.length}}人)</text>
+      <button class="add-btn" bindtap="showAddStaffModal">+ 添加人员</button>
+    </view>
+    
+    <!-- 加载状态 -->
+    <view class="loading" wx:if="{{isLoading}}">
+      <text class="loading-text">加载中...</text>
+    </view>
+
+    <view class="staff-items" wx:elif="{{!isLoading}}">
+      <view 
+        class="staff-item" 
+        wx:for="{{staffList}}" 
+        wx:key="_id"
+      >
+        <view class="staff-info">
+          <view class="staff-avatar">{{item.name.charAt(0)}}</view>
+          <view class="staff-details">
+            <text class="staff-name">{{item.name}}</text>
+            <text class="staff-dept">{{item.department}}</text>
+          </view>
+        </view>
+        <button 
+          class="delete-btn" 
+          data-id="{{item._id}}"
+          bindtap="deleteStaff"
+        >
+          删除
+        </button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{staffList.length === 0}}">
+    <text class="empty-icon">👥</text>
+    <text class="empty-text">暂无人员信息</text>
+    <button class="add-empty-btn" bindtap="showAddStaffModal">添加第一个人员</button>
+  </view>
+
+  <!-- 添加人员模态框 -->
+  <view class="modal" wx:if="{{showAddModal}}">
+    <view class="modal-mask" bindtap="hideModal"></view>
+    <view class="modal-content">
+      <view class="modal-header">
+        <text class="modal-title">添加人员</text>
+      </view>
+      
+      <view class="modal-body">
+        <view class="input-group">
+          <text class="input-label">姓名 *</text>
+          <input 
+            class="staff-input"
+            placeholder="请输入姓名"
+            value="{{newStaffName}}"
+            bindinput="onNameInput"
+          />
+        </view>
+        
+        <view class="input-group">
+          <text class="input-label">部门 *</text>
+          <input 
+            class="staff-input"
+            placeholder="请输入部门"
+            value="{{newStaffDept}}"
+            bindinput="onDeptInput"
+          />
+        </view>
+      </view>
+      
+      <view class="modal-footer">
+        <button class="cancel-btn" bindtap="hideModal">取消</button>
+        <button class="confirm-btn" bindtap="addStaff">确定</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 返回按钮 -->
+  <view class="footer">
+    <button class="back-btn" bindtap="goBack">返回首页</button>
+  </view>
+</view>

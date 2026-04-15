@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "请假系统",
+  "usingComponents": {
+    "cloud-tip-modal": "/components/cloudTipModal/index"
+  }
+}

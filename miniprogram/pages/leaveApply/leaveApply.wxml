@@ -1,0 +1,126 @@
+<!--pages/leaveApply/leaveApply.wxml-->
+<view class="container {{isNarrowScreen ? 'container--narrow' : ''}}">
+  <view class="form-card">
+    <view class="card-header">
+      <text class="card-title">请假申请</text>
+      <text class="card-subtitle">请填写完整的请假信息</text>
+    </view>
+    
+    <view class="form-content">
+      <!-- 姓名选择 -->
+      <view class="form-group">
+        <view class="form-label">姓名 *</view>
+        <picker 
+          mode="selector" 
+          range="{{nameOptions}}" 
+          range-key="name"
+          bindchange="onNameChange"
+        >
+          <view class="picker {{name ? '' : 'placeholder'}}">
+            {{name || '请选择姓名'}}
+          </view>
+        </picker>
+      </view>
+
+      <!-- 日期范围选择 -->
+      <view class="form-group">
+        <view class="form-label">请假日期 *</view>
+        
+        <!-- 日期范围开关 -->
+        <view class="toggle-group">
+          <text class="toggle-label">多天请假</text>
+          <switch 
+            class="date-toggle" 
+            checked="{{isDateRange}}" 
+            bindchange="onDateRangeToggle"
+          />
+        </view>
+        
+        <!-- 开始日期 -->
+        <view class="date-picker-item">
+          <text class="date-label">开始日期</text>
+          <picker 
+            mode="date" 
+            value="{{startDate}}" 
+            bindchange="onStartDateChange"
+          >
+            <view class="picker">
+              {{startDate || '请选择开始日期'}}
+            </view>
+          </picker>
+        </view>
+        
+        <!-- 结束日期（仅在开启日期范围时显示）-->
+        <view class="date-picker-item" wx:if="{{isDateRange}}">
+          <text class="date-label">结束日期</text>
+          <picker 
+            mode="date" 
+            value="{{endDate}}" 
+            bindchange="onEndDateChange"
+          >
+            <view class="picker">
+              {{endDate || '请选择结束日期'}}
+            </view>
+          </picker>
+        </view>
+        
+        <!-- 日期显示（非范围模式）-->
+        <view class="date-single-display" wx:else>
+          <text class="single-date">{{startDate}}</text>
+        </view>
+      </view>
+
+      <!-- 时段选择 -->
+      <view class="form-group">
+        <view class="form-label">请假时段 *</view>
+        <picker 
+          mode="selector" 
+          range="{{periodOptions}}" 
+          range-key="label"
+          value="{{period}}" 
+          bindchange="onPeriodChange"
+        >
+          <view class="picker">
+            {{periodLabel || '全天'}}
+          </view>
+        </picker>
+      </view>
+
+      <!-- 请假原因 -->
+      <view class="form-group">
+        <view class="form-label">请假原因 *</view>
+        <textarea 
+          class="reason-textarea" 
+          placeholder="请输入请假的具体原因" 
+          value="{{reason}}"
+          bindinput="onReasonInput"
+          maxlength="200"
+        />
+        <view class="char-count">{{reason.length}}/200</view>
+      </view>
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="form-actions">
+      <button class="btn btn-reset" bindtap="handleReset">重置</button>
+      <button 
+        class="btn btn-submit {{isLoading ? 'loading' : ''}}" 
+        bindtap="handleSubmit"
+        disabled="{{isLoading}}"
+      >
+        <text wx:if="{{!isLoading}}">提交申请</text>
+        <text wx:else>提交中...</text>
+      </button>
+    </view>
+  </view>
+
+  <!-- 注意事项 -->
+  <view class="notice-card">
+    <view class="notice-title">💡 注意事项</view>
+    <view class="notice-content">
+      <view class="notice-item">• 请假需要经过管理员审批后生效</view>
+      <view class="notice-item">• 请提前申请，避免临时请假</view>
+      <view class="notice-item">• 如有紧急情况，请及时联系相关负责人</view>
+    </view>
+  </view>
+</view>

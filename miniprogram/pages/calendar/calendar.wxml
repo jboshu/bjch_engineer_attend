@@ -1,0 +1,133 @@
+<!--pages/calendar/calendar.wxml-->
+<view class="container">
+  <view class="header">
+    <text class="current-month">{{currentMonth}}</text>
+    <text class="next-month">{{nextMonthDisplay}}</text>
+  </view>
+
+  <!-- 星期标题 -->
+  <view class="week-header">
+    <view class="week-day" wx:for="{{weekHeaders}}" wx:key="index">
+      {{item}}
+    </view>
+  </view>
+
+  <!-- 日历主体 -->
+  <view class="calendar-grid">
+    <view 
+      class="calendar-day {{item.isCurrentMonth ? 'current-month' : item.isNextMonth ? 'next-month' : 'other-month'}} {{dailyCounts[item.dateString] > 0 ? 'has-leave' : ''}}" 
+      wx:for="{{calendarDays}}" 
+      wx:key="dateString"
+      bindtap="onDateClick"
+      data-date-string="{{item.dateString}}"
+      data-date="{{item.date}}"
+    >
+      <view class="day-header">
+        <text class="day-number">{{item.date}}</text>
+        <text class="month-label" wx:if="{{!item.isCurrentMonth}}">{{item.monthLabel}}</text>
+      </view>
+      
+      <!-- 请假人数显示 -->
+      <view class="leave-count" wx:if="{{dailyCounts && dailyCounts[item.dateString] > 0}}">
+        <text class="count-number">{{dailyCounts[item.dateString]}}</text>
+        <text class="count-label">人</text>
+      </view>
+      
+      <!-- 详细请假人员信息 -->
+      <view class="leave-info" wx:if="{{leaveData && leaveData[item.dateString]}}">
+        <view 
+          class="leave-item" 
+          wx:for="{{leaveData[item.dateString]}}" 
+          wx:key="name"
+        >
+          <text class="leave-name">{{item.name}}</text>
+          <text class="leave-period">{{item.period === 'full' ? '全' : item.period === 'morning' ? '上' : '下'}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading" wx:if="{{isLoading}}">
+    <text class="loading-text">加载中...</text>
+  </view>
+  
+  <!-- 图例说明 -->
+  <view class="legend">
+    <view class="legend-item">
+      <text class="legend-color"></text>
+      <text class="legend-text">请假人员</text>
+    </view>
+    <view class="legend-item">
+      <text class="legend-symbol">上</text>
+      <text class="legend-text">上午请假</text>
+    </view>
+    <view class="legend-item">
+      <text class="legend-symbol">下</text>
+      <text class="legend-text">下午请假</text>
+    </view>
+    <view class="legend-item">
+      <text class="legend-symbol">全</text>
+      <text class="legend-text">全天请假</text>
+    </view>
+  </view>
+  
+  <!-- 日期详情弹窗 -->
+  <view 
+    class="modal-overlay {{showModal ? 'show' : ''}}" 
+    bindtap="closeModal"
+  >
+    <view class="modal-content" bindtap="preventBackgroundScroll">
+      <view class="modal-header">
+        <text class="modal-title">{{selectedDateStr}} 请假详情</text>
+        <view class="close-btn" bindtap="closeModal">✕</view>
+      </view>
+      
+      <scroll-view 
+        class="modal-body"
+        scroll-y="true"
+        enable-back-to-top="true"
+        scroll-top="{{scrollTop}}"
+        enhanced="true"
+        show-scrollbar="true"
+        scroll-with-animation="true"
+        bindscrolltoupper="onScrollToUpper"
+        bindscrolltolower="onScrollToLower"
+        catchtouchmove="handleScrollViewTouch"
+      >
+        <view class="leave-summary">
+          <text class="summary-text">今日请假人数：</text>
+          <text class="summary-count">{{selectedDateInfo.length}}</text>
+          <text class="summary-text">人</text>
+        </view>
+        
+        <view class="leave-list" wx:if="{{selectedDateInfo.length > 0}}">
+          <view 
+            class="leave-item-detail" 
+            wx:for="{{selectedDateInfo}}" 
+            wx:key="name"
+          >
+            <view class="leave-person">
+              <text class="person-name">{{item.name}}</text>
+              <text class="person-period {{item.period}}">
+                {{item.period === 'full' ? '全天' : item.period === 'morning' ? '上午' : '下午'}}
+              </text>
+            </view>
+            <view class="leave-reason">
+              <text class="reason-label">原因：</text>
+              <text class="reason-text">{{item.reason}}</text>
+            </view>
+          </view>
+        </view>
+        
+        <view class="no-leave" wx:else>
+          <text class="no-leave-text">今日无人请假</text>
+        </view>
+      </scroll-view>
+      
+      <view class="modal-footer">
+        <button class="close-button" bindtap="closeModal">关闭</button>
+      </view>
+    </view>
+  </view>
+</view>
